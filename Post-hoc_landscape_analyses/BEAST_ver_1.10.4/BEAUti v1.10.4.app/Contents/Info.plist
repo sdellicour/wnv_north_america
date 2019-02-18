@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plist version="1.0">
+  <dict>
+    <key>CFBundleName</key>
+    <string>BEAUti v1.10.4</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.10.4</string>
+    <key>CFBundleAllowMixedLocalizations</key>
+    <string>false</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleExecutable</key>
+    <string>universalJavaApplicationStub_BEAST</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleIconFile</key>
+    <string>beauti.icns</string>
+    <key>CFBundleIdentifier</key>
+    <string>dr.app.beauti</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>BEAUti v1.10.4, Copyright 2002-2018, Alexei J. Drummond, Andrew Rambaut and Marc A. Suchard</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeName</key>
+        <string>BEAUti document</string>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleTypeIconFile</key>
+        <string>BEAUtiDoc.icns</string>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>beauti</string>
+          <string>bti</string>
+        </array>
+      </dict>
+    </array>
+    <key>JavaX</key>
+    <dict>
+      <key>MainClass</key>
+      <string>dr.app.beauti.BeautiApp</string>
+      <key>JVMVersion</key>
+      <string>1.7+</string>
+      <key>ClassPath</key>
+      <array>
+        <string>$JAVAROOT/beauti.jar</string>
+      </array>
+      <key>VMOptions</key>
+      <string>-Xmx2048M</string>
+      <key>Arguments</key>
+      <string/>
+      <key>Properties</key>
+      <dict>
+        <key>apple.laf.useScreenMenuBar</key>
+        <string>true</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

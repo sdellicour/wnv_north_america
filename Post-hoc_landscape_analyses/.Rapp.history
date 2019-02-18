@@ -1,0 +1,16 @@
+e_WNV = extent(-128, -63, 19, 55) # extent of study area#
+localTreesDirectory = "Tree_extractions/WNV4_gamma_100"#
+nberOfExtractionFiles = 100; mostRecentSamplingDatum = 2016.6475
+library(rgeos)#
+library(diagram)#
+library(adephylo)#
+library(seraphim)#
+library(lubridate)#
+library(OutbreakTools)#
+#
+	# 1. Extraction of the spatio-temporal information embedded in 100 trees#
+	# 2. Generating and saving annual and monthly progression polygons#
+#
+e_WNV = extent(-128, -63, 19, 55) # extent of study area#
+localTreesDirectory = "Tree_extractions/WNV4_gamma_100"#
+nberOfExtractionFiles = 100; mostRecentSamplingDatum = 2016.6475

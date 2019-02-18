@@ -1,0 +1,414 @@
+<?xml version="1.0"?>
+<metadata>
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>ESRI data that came with ArcMap 9/1</origin>
+				<origin>ESRI</origin>
+				<pubdate>20050401</pubdate>
+				<title Sync="TRUE">Ducks_Unlimited_Flyways</title>
+				<edition>2005</edition>
+				<geoform Sync="TRUE">vector digital data</geoform>
+				<serinfo>
+					<sername>ESRI® Data &amp; Maps</sername>
+					<issue>2005</issue>
+				</serinfo>
+				<pubinfo>
+					<pubplace>Redlands, California, USA</pubplace>
+					<publish>ESRI</publish>
+				</pubinfo>
+				<ftname Sync="TRUE">Ducks_Unlimited_Flyways</ftname><onlink Sync="TRUE">\\GWANG\C$\temp\data\Ducks_Unlimited_Flyways.shp</onlink></citeinfo>
+		</citation>
+		<descript>
+			<abstract>Ducks Unlimited (DU) flyways display county assignments to flyway regions in CONSERV – DU’s Oracle based Habitat Project tracking system.  The counties have been merged based on the flyway to create boundary polygons.  Most counties are assigned to a flyway based on the state locations.  The counties in Montana, Wyoming, Colorado and New Mexico were divided between the Pacific and Central flyway.  The continental divide was used initially as the dividing line and additional edits were applied with data from a 1978 US Department of interior document called Average Harvest of Each Duck Species in States and Counties during 1966-1975 Hunting Seasons (Carney, Sorensen, and Martin) from DU Great Plain Regional Office.  Four flyways were created in North America, Atlantic Flyway, Central Flyway, Mississippi Flyway, and Pacific Flyway.</abstract>
+			<purpose>Ducks Unlimited (DU) flyways display county assignments to flyway regions in CONSERV – DU’s Oracle based Habitat Project tracking system. </purpose>
+			<supplinf>Largest scale when displaying the data: 1:100,000.</supplinf>
+			<langdata Sync="TRUE">en</langdata></descript>
+		<timeperd>
+			<timeinfo>
+				<mdattim>
+					<sngdate>
+						<caldate>200501</caldate>
+					</sngdate>
+					<sngdate>
+						<caldate>200407</caldate>
+					</sngdate>
+					<sngdate>
+						<caldate>2000</caldate>
+					</sngdate>
+					<sngdate>
+						<caldate>1997</caldate>
+					</sngdate>
+					<sngdate>
+						<caldate>20050210</caldate>
+					</sngdate>
+				</mdattim>
+			</timeinfo>
+			<current>publication date: 200501, 200407, 20050210; ground condition: 2000, 1997</current>
+		</timeperd>
+		<status>
+			<progress>In work</progress>
+			<update>As needed</update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc Sync="TRUE">-178.226815</westbc>
+				<eastbc Sync="TRUE">-66.950103</eastbc>
+				<northbc Sync="TRUE">71.390482</northbc>
+				<southbc Sync="TRUE">18.910885</southbc>
+			</bounding>
+			<lboundng><leftbc Sync="TRUE">-178.226815</leftbc><rightbc Sync="TRUE">-66.950103</rightbc><bottombc Sync="TRUE">18.910885</bottombc><topbc Sync="TRUE">71.390482</topbc></lboundng></spdom>
+		<keywords>
+			<theme>
+				<themekt>None</themekt>
+				<themekey>polygon</themekey>
+				<themekey>area</themekey>
+				<themekey>detail</themekey>
+				<themekey>boundaries</themekey>
+				<themekey>flyway</themekey></theme>
+			<place>
+				<placekt>None</placekt>
+				<placekey>United States</placekey>
+				<placekey>U.S. Counties</placekey>
+				<placekey>Counties</placekey>
+			</place>
+			<temporal>
+				<tempkt>None</tempkt>
+				<tempkey>2005</tempkey>
+				<tempkey>2004</tempkey>
+				<tempkey>2000</tempkey>
+				<tempkey>1997</tempkey>
+				<tempkey>1999</tempkey>
+				<tempkey>2005</tempkey>
+			</temporal>
+		</keywords>
+		<accconst>Access granted to Licensee only.</accconst>
+		<useconst>The data are provided by multiple, third party data vendors under license to ESRI for inclusion on ESRI Data &amp; Maps for use with ESRI® software.  Each data vendor has its own data licensing policies and may grant varying redistribution rights to end users. Please consult the redistribution rights below for this data set provided on ESRI Data &amp; Maps. As used herein, ?Geodata? shall mean any digital data set consisting of geographic data coordinates and associated attributes.
+
+The redistribution rights for this data set: Redistribution rights are granted by the data vendor for hard-copy renditions or static, electronic map images (e.g. .gif, .jpeg, etc.) that are plotted, printed, or publicly displayed with proper metadata and source/copyright attribution to the respective data vendor(s).  Geodata is redistributable with a Value-Added Software Application developed by ESRI Business Partners on a royalty-free basis with proper metadata and source/copyright attribution to the respective data vendor(s).
+
+[Applicable to U.S. Government Agencies and ESRI Business Information Solutions attributes only]?In addition to the redistribution rights above, geodata is redistributable without a Value-Added Software Application (i.e., adding the sample data to an existing, [non]commercial data set for redistribution) with proper metadata and source/copyright attribution to the respective data vendor(s).
+
+The terms and conditions below apply to all the data sets provided on ESRI Data &amp; Maps.
+
+Proprietary Rights and Copyright: Licensee acknowledges that the Data and Related Materials contain proprietary and confidential property of ESRI and its licensor(s). The Data and Related Materials are owned by ESRI and its licensor(s) and are protected by United States copyright laws and applicable international copyright treaties and/or conventions.
+
+Limited Warranty and Disclaimer: ESRI warrants that the media upon which the Data and Related Materials are provided will be free from defects in materials and workmanship under normal use and service for a period of ninety (90) days from the date of receipt.
+
+THE DATA AND RELATED MATERIALS ARE EXCLUDED FROM THE LIMITED WARRANTY, AND THE LICENSEE EXPRESSLY ACKNOWLEDGES THAT THE DATA CONTAINS SOME NONCONFORMITIES, DEFECTS, OR ERRORS. ESRI DOES NOT WARRANT THAT THE DATA WILL MEET LICENSEE'S NEEDS OR EXPECTATIONS; THAT THE USE OF THE DATA WILL BE UNINTERRUPTED; OR THAT ALL NONCONFORMITIES, DEFECTS, OR ERRORS CAN OR WILL BE CORRECTED. ESRI IS NOT INVITING RELIANCE ON THIS DATA, AND THE LICENSEE SHOULD ALWAYS VERIFY ACTUAL DATA.
+
+EXCEPT FOR THE LIMITED WARRANTY SET FORTH ABOVE, THE DATA AND RELATED MATERIALS CONTAINED THEREIN ARE PROVIDED "AS-IS," WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+Exclusive Remedy and Limitation of Liability: The entire liability of ESRI or its licensor(s) and Licensee's exclusive remedy shall be to terminate the Agreement upon Licensee returning the Data and Related Materials to ESRI with a copy of Licensee's invoice/receipt and ESRI returning the license fees paid to Licensee.
+
+IN NO EVENT SHALL ESRI AND/OR ITS LICENSOR(S) BE LIABLE FOR COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOST PROFITS, LOST SALES, OR BUSINESS EXPENDITURES, INVESTMENTS, OR COMMITMENTS IN CONNECTION WITH ANY BUSINESS; LOSS OF ANY GOODWILL; OR FOR ANY INDIRECT, SPECIAL, INCIDENTAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THIS AGREEMENT OR USE OF THE DATA AND RELATED MATERIALS, HOWEVER CAUSED, ON ANY THEORY OF LIABILITY, AND WHETHER OR NOT ESRI OR ITS LICENSOR(S) HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THESE LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY EXCLUSIVE REMEDY.
+
+Third Party Beneficiary: ESRI's licensor(s) has (have) authorized ESRI to (sub)distribute and (sub)license its (their) data as incorporated into the Data and Related Materials. As an intended third party beneficiary to this Agreement, the ESRI licensor(s) is (are) entitled to directly enforce, in its own name, the rights and obligations undertaken by the Licensee and to seek all legal and equitable remedies as are afforded to ESRI.
+
+In the event that the data vendor(s) has (have) granted the end user permission to redistribute the Geodata, please use proper proprietary or copyright attribution for the various data vendor(s), and provide the associated metadata file(s) with the Geodata. In compliance with FGDC metadata standards, ESRI has attempted to practice proper metadata methodologies by providing any data source information, descriptions, and file names to assist in this effort.</useconst>
+		<ptcontac>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Ducks Unlimited</cntorg>
+					<cntper>Nancy Thompson</cntper>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>1 Waterfowl Way</address>
+					<city>Memphis</city>
+					<state>TN</state>
+					<postal>38120</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>901-758-3897</cntvoice>
+				<cntfax>901-758-3850</cntfax>
+				<cntemail>nthompson@ducks.org</cntemail>
+				<cntpos>GIS Analyst</cntpos></cntinfo>
+		</ptcontac>
+		<native Sync="TRUE">Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 2; ESRI ArcCatalog 9.2.2.1350</native>
+		<natvform Sync="TRUE">Shapefile</natvform></idinfo>
+	<dataqual>
+		<posacc>
+			<horizpa>
+				<horizpar>The geospatial part of this data set was extracted from the 2002 Census TIGER/Line® files.  The positional accuracy of the TIGER/Line coordinates varies with the source materials used but at best meets the established National Map Accuracy standards (+/- 167 feet approximately) where 1:100,000-scale maps from the USGS are the source. The Census Bureau cannot specify the accuracy of feature updates added by its field staff or of features derived from the GBF/DIME-Files or other map sources. Thus, the level of positional accuracy in the TIGER/Line files is not suitable for high-precision measurement applications such as engineering problems, property transfers, or other uses that might require highly accurate measurements of the earth's surface.</horizpar>
+			</horizpa>
+		</posacc>
+		<lineage>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>Tele Atlas North America, Inc./Geographic Data Technology, Inc.</origin>
+						<pubdate>200501</pubdate>
+						<title>Dynamap/2000 v. 15.0</title>
+						<edition>Version 15.0</edition>
+						<geoform>vector digital data</geoform>
+						<serinfo>
+							<sername>Dynamap®/2000</sername>
+							<issue>Version 15.0</issue>
+						</serinfo>
+						<pubinfo>
+							<pubplace>Lebanon, New Hampshire, USA</pubplace>
+							<publish>Tele Atlas North America, Inc./Geographic Data Technology, Inc.</publish>
+						</pubinfo>
+						<onlink>http://www.geographic.com/home/index.cfm</onlink>
+					</citeinfo>
+				</srccite>
+				<srcscale>100000</srcscale>
+				<typesrc>DVD?ROM</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>200501</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>publication date</srccurr>
+				</srctime>
+				<srccitea>TANA/GDT Dynamap/2000 v. 15.0</srccitea>
+				<srccontr>Attribute and geospatial data</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>Department of Commerce, Census Bureau</origin>
+						<pubdate>2001</pubdate>
+						<title>Summary File 1 (SF1)</title>
+						<edition>2000</edition>
+						<serinfo>
+							<sername>Summary File 1 (SF1)</sername>
+							<issue>2000</issue>
+						</serinfo>
+						<pubinfo>
+							<pubplace>USA</pubplace>
+							<publish>Department of Commerce, Census Bureau</publish>
+						</pubinfo>
+						<othercit>The Summary File 1 (SF1) data is based on the 2000 Census of Population.</othercit>
+					</citeinfo>
+				</srccite>
+				<typesrc>CDROM</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>2000</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>Census SF1</srccitea>
+				<srccontr>Attribute data</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>ESRI Business Information Solutions</origin>
+						<pubdate>200407</pubdate>
+						<geoform>tabular digital data</geoform>
+						<pubinfo>
+							<pubplace>Vienna, Virginia, USA</pubplace>
+							<publish>ESRI Business Information Solutions</publish>
+						</pubinfo>
+						<othercit>Provides the POP2004 attribute.</othercit>
+					</citeinfo>
+				</srccite>
+				<typesrc>CDROM</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>200407</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>publication date</srccurr>
+				</srctime>
+				<srccitea>ESRI BIS</srccitea>
+				<srccontr>Attribute data</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>U.S. Department of Agriculture (USDA), National Agricultural Statistics Service (NASS)</origin>
+						<pubdate>199903</pubdate>
+						<title>1997 Census of Agriculture</title>
+						<edition>1997</edition>
+						<serinfo>
+							<sername>Census of Agriculture</sername>
+							<issue>1997</issue>
+						</serinfo>
+						<pubinfo>
+							<pubplace>USA</pubplace>
+							<publish>U.S. Department of Agriculture (USDA), National Agricultural Statistics Service (NASS)</publish>
+						</pubinfo>
+						<othercit>The farm attributes come from data published by the U.S. Department of Agriculture (USDA), National Agricultural Statistics Service (NASS) based on the 1997 Census of Agriculture.</othercit>
+					</citeinfo>
+				</srccite>
+				<typesrc>CDROM</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>1997</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>ground condition</srccurr>
+				</srctime>
+				<srccitea>USDA Farm</srccitea>
+				<srccontr>Attribute data</srccontr>
+			</srcinfo>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<origin>United States Central Intelligence Agency</origin>
+						<pubdate>20050210</pubdate>
+						<title>The World Factbook</title>
+						<geoform>document</geoform>
+						<pubinfo>
+							<pubplace>Washington, DC, USA</pubplace>
+							<publish>United States Central Intelligence Agency</publish>
+						</pubinfo>
+						<othercit>The Factbook has been an annual publication, but selected data and maps are updated periodically online.</othercit>
+						<onlink>http://www.odci.gov/cia/publications/factbook/geos/rq.html</onlink>
+					</citeinfo>
+				</srccite>
+				<typesrc>online</typesrc>
+				<srctime>
+					<timeinfo>
+						<sngdate>
+							<caldate>20050210</caldate>
+						</sngdate>
+					</timeinfo>
+					<srccurr>publication date</srccurr>
+				</srctime>
+				<srccitea>CIA Factbook</srccitea>
+				<srccontr>Attribute data</srccontr>
+			</srcinfo>
+			<procstep>
+				<procdesc>The following steps were performed by ESRI: Extracted county geography from TANA/GDT Dynamap/2000 v. 15.0. Cleaned up the coastal areas. Attached and formatted the attributes from 2004 U.S. Counties. Corrected the county names for the feature Puerto Rico. Moved attribute SQMI to the end of the attributes, rounded its values to the nearest tenth of a mile, and calculated its values for Puerto Rico. Replaced attribute POP2003 with POP2004. Added attribute POP04_SQMI and calculated its values. Put "-99" values into all number attributes (except SQMI) for Puerto Rico. Created ArcGIS® layer file (.lyr), projection file (.prj), and spatial indices.</procdesc>
+				<srcused>TANA/GDT Dynamap/2000 v. 15.0</srcused>
+				<srcused>Census SF1</srcused>
+				<srcused>ESRI BIS</srcused>
+				<srcused>USDA Farm</srcused>
+				<srcused>CIA Factbook</srcused>
+				<procdate>20050309</procdate>
+			</procstep>
+			<procstep><procdesc Sync="TRUE">Metadata imported.</procdesc><srcused Sync="TRUE">C:\DOCUME~1\NTHOMP~1\LOCALS~1\Temp\xml89.tmp</srcused><date Sync="TRUE">20060612</date><time Sync="TRUE">11322200</time></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">R:\project\DU_flyway_county\flyway_county_update_061206\DU_flyway_county</srcused><date Sync="TRUE">20060616</date><time Sync="TRUE">08271500</time></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE"></srcused><date Sync="TRUE">20070213</date><time Sync="TRUE">11390500</time></procstep><procstep><procdesc Sync="TRUE">Metadata imported.</procdesc><srcused Sync="TRUE">R:\DU_GDB\DU_flyway_county_code.shp.xml</srcused><date Sync="TRUE">20070319</date><time Sync="TRUE">16572800</time></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">Server=sdedev; Service=5151; Database=arcsdeDB; User=sde; Version=SDE.DEFAULT</srcused><date Sync="TRUE">20070502</date><time Sync="TRUE">08195000</time></procstep></lineage>
+	</dataqual>
+	<spdoinfo>
+		<direct Sync="TRUE">Vector</direct>
+		<ptvctinf>
+			<sdtsterm Name="Ducks_Unlimited_Flyways">
+				<sdtstype Sync="TRUE">G-polygon</sdtstype>
+				<ptvctcnt Sync="TRUE">4</ptvctcnt>
+			</sdtsterm>
+			<esriterm Name="Ducks_Unlimited_Flyways"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom Sync="TRUE">Polygon</efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">4</efeacnt><spindex Sync="TRUE">TRUE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf>
+	</spdoinfo>
+	<spref>
+		<horizsys>
+			<geograph>
+				<latres Sync="TRUE">0.000000</latres>
+				<longres Sync="TRUE">0.000000</longres>
+				<geogunit Sync="TRUE">Decimal degrees</geogunit>
+			</geograph>
+			<geodetic>
+				<horizdn Sync="TRUE">D_WGS_1984</horizdn>
+				<ellips Sync="TRUE">WGS_1984</ellips>
+				<semiaxis Sync="TRUE">6378137.000000</semiaxis>
+				<denflat Sync="TRUE">298.257224</denflat>
+			</geodetic>
+			<cordsysn><geogcsn Sync="TRUE">GCS_WGS_1984</geogcsn></cordsysn></horizsys>
+		<vertdef><altsys><altenc Sync="TRUE">Explicit elevation coordinate included with horizontal coordinates</altenc><altres Sync="TRUE">1.000000</altres></altsys></vertdef></spref>
+	<eainfo>
+		<detailed Name="Ducks_Unlimited_Flyways">
+			<enttyp>
+				<enttypl Sync="TRUE">Ducks_Unlimited_Flyways</enttypl>
+				<enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">4</enttypc></enttyp>
+			<attr><attrlabl Sync="TRUE">FlywayCode</attrlabl><attalias Sync="TRUE">FlywayCode</attalias><attrtype Sync="TRUE">Number</attrtype><attwidth Sync="TRUE">4</attwidth><attrdef>Flyway code used in CONSERV</attrdef></attr><attr><attrlabl Sync="TRUE">Flyway</attrlabl><attalias Sync="TRUE">Flyway</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">30</attwidth><attrdef>Migration flyway name</attrdef></attr><attr><attrlabl Sync="TRUE">FLYWAY</attrlabl><attalias Sync="TRUE">FLYWAY</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">30</attwidth></attr><attr><attrlabl Sync="TRUE">FLYWAYCODE</attrlabl><attalias Sync="TRUE">FLYWAYCODE</attalias><attrtype Sync="TRUE">Number</attrtype><attwidth Sync="TRUE">4</attwidth></attr><attr>
+				<attrlabl>Shape</attrlabl>
+				<attrdef>Feature geometry.</attrdef>
+				<attrdefs>ESRI</attrdefs>
+				<attrdomv>
+					<udom>Coordinates defining the features.</udom>
+				</attrdomv>
+				<attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">3</attwidth></attr>
+			<attr><attrlabl Sync="TRUE">FID</attrlabl><attalias Sync="TRUE">FID</attalias><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Internal feature number.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv></attr><attr><attrlabl Sync="TRUE">SHAPE</attrlabl><attalias Sync="TRUE">SHAPE</attalias><attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Feature geometry.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv></attr></detailed>
+	</eainfo>
+	<distinfo>
+		<distrib>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>ESRI; ESRI International Distributors</cntorg>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>380 New York Street</address>
+					<city>Redlands</city>
+					<state>California</state>
+					<postal>92373-8100</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>800-447-9778</cntvoice>
+				<cntinst>
+In the United States, contact the ESRI Telesales staff at 800-447-9778 for more information about our software and data.
+
+Outside the United States, please direct all inquiries to your local ESRI International Distributor.  This information can be found at http://gis.esri.com/intldist/contactint.cfm.
+</cntinst>
+			</cntinfo>
+		</distrib>
+		<resdesc>Offline Data</resdesc>
+		<distliab>See use constraints.</distliab>
+		<stdorder>
+			<digform>
+				<digtinfo>
+					<formname>SDC</formname>
+					<formspec>The SDC file contains the geospatial and attribute data. The SDI file contains the spatial and attribute indexes. The PRJ file contains the coordinate system information (optional). The XML file (*.sdc.xml) contains the metadata describing the data set (optional).</formspec>
+					<filedec>ArcGIS® software</filedec>
+					<transize>17.431</transize>
+					<dssize Sync="TRUE">0.389</dssize></digtinfo>
+				<digtopt>
+					<offoptn>
+						<offmedia>DVD?ROM</offmedia>
+						<reccap>
+							<recden>4.38</recden>
+							<recdenu>GB (gigabytes)</recdenu>
+						</reccap>
+						<recfmt>ISO 9660</recfmt>
+					</offoptn>
+					<offoptn>
+						<offmedia>CDROM</offmedia>
+						<reccap>
+							<recden>650</recden>
+							<recdenu>MB (megabytes)</recdenu>
+						</reccap>
+						<recfmt>ISO 9660</recfmt>
+					</offoptn>
+				</digtopt>
+			</digform>
+			<fees>Software purchase price</fees>
+			<ordering>ESRI Data &amp; Maps is available only as part of ESRI® software.</ordering>
+		</stdorder>
+		<techpreq>To use this data requires software that supports SDC files.</techpreq>
+	</distinfo>
+	<metainfo>
+		<metd Sync="TRUE">20071004</metd>
+		<metc>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Ducks Unlimited</cntorg>
+					<cntper>Nancy Thompson</cntper>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>1 Waterfowl Way</address>
+					<city>Memphis</city>
+					<state>TN</state>
+					<postal>38120</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>901-758-3897</cntvoice>
+				<cntfax>901-758-3850</cntfax>
+				<cntemail>nthompson@ducks.org</cntemail>
+			</cntinfo>
+		</metc>
+		<metstdn Sync="TRUE">FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+		<metstdv Sync="TRUE">FGDC-STD-001-1998</metstdv>
+		<mettc Sync="TRUE">local time</mettc>
+		<metextns>
+		</metextns>
+		<langmeta Sync="TRUE">en</langmeta><metextns><onlink Sync="TRUE">http://www.esri.com/metadata/esriprof80.html</onlink><metprof Sync="TRUE">ESRI Metadata Profile</metprof></metextns></metainfo>
+	<Esri><CreaDate>20070502</CreaDate><CreaTime>08195000</CreaTime><SyncOnce>FALSE</SyncOnce><SyncDate>20071004</SyncDate><SyncTime>13080300</SyncTime><ModDate>20071004</ModDate><ModTime>13080300</ModTime><MetaID>{DFBB7E03-34FA-4945-98D4-CD084C03574E}</MetaID><DataProperties><lineage><Process Name="FeatureClassToFeatureClass_1" ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Conversion Tools.tbx\FeatureClassToFeatureClass" Date="20070502" Time="151450">FeatureClassToFeatureClass "Database Connections\CONSERV.sde\CONSERV.DELIVERIES\CONSERV.US_DU_Flyways" "Database Connections\CONSERV.sde\CONSERV.PRIORITIES" FLY # "FLYWAY FLYWAY true false false 30 Text 0 0 ,First,#,Database Connections\CONSERV.sde\CONSERV.DELIVERIES\CONSERV.US_DU_Flyways,FLYWAY,-1,-1;FLYWAYCODE FLYWAYCODE true false false 2 Short 0 4 ,First,#,Database Connections\CONSERV.sde\CONSERV.DELIVERIES\CONSERV.US_DU_Flyways,FLYWAYCODE,-1,-1;AREA AREA false false true 0 Double 0 0 ,First,#,Database Connections\CONSERV.sde\CONSERV.DELIVERIES\CONSERV.US_DU_Flyways,SHAPE.AREA,-1,-1;LEN LEN false false true 0 Double 0 0 ,First,#,Database Connections\CONSERV.sde\CONSERV.DELIVERIES\CONSERV.US_DU_Flyways,SHAPE.LEN,-1,-1" # "Database Connections\CONSERV.sde\CONSERV.PRIORITIES\CONSERV.FLY"</Process><Process Name="FeatureClassToFeatureClass_1" ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Conversion Tools.tbx\FeatureClassToFeatureClass" Date="20071003" Time="160836">FeatureClassToFeatureClass "Database Connections\CONSERV.sde\CONSERV.PRIORITIES\CONSERV.US_DU_Flyways" C:\temp Ducks_Unlimited_Flyways.shp # "FLYWAY FLYWAY true true false 30 Text 0 0 ,First,#,Database Connections\CONSERV.sde\CONSERV.PRIORITIES\CONSERV.US_DU_Flyways,FLYWAY,-1,-1;FLYWAYCODE FLYWAYCODE true true false 2 Short 0 4 ,First,#,Database Connections\CONSERV.sde\CONSERV.PRIORITIES\CONSERV.US_DU_Flyways,FLYWAYCODE,-1,-1" # C:\temp\Ducks_Unlimited_Flyways.shp</Process><Process Name="SimplifyPolygon_5" ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\SimplifyPolygon" Date="20071003" Time="163807">SimplifyPolygon C:\temp\Ducks_Unlimited_Flyways.shp "C:\GW\For DU GIS\Ducks_Unlimited_Flyways.shp" POINT_REMOVE "1 Kilometers" "0 Unknown" NO_CHECK KEEP_COLLAPSED_POINTS "C:\GW\For DU GIS\Ducks_Unlimited_Flyways_Pnt.shp"</Process></lineage></DataProperties></Esri><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 2; ESRI ArcCatalog 9.2.2.1350</envirDesc><dataLang><languageCode Sync="TRUE" value="en"></languageCode></dataLang><idCitation><resTitle Sync="TRUE">Ducks_Unlimited_Flyways</resTitle><presForm><PresFormCd Sync="TRUE" value="005"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd Sync="TRUE" value="001"></SpatRepTypCd></spatRpType><dataExt><geoEle><GeoBndBox esriExtentType="native"><westBL Sync="TRUE">-178.226815</westBL><eastBL Sync="TRUE">-66.950103</eastBL><northBL Sync="TRUE">71.390482</northBL><southBL Sync="TRUE">18.910885</southBL><exTypeCode Sync="TRUE">1</exTypeCode></GeoBndBox></geoEle></dataExt><geoBox esriExtentType="decdegrees"><westBL Sync="TRUE">-178.226815</westBL><eastBL Sync="TRUE">-66.950103</eastBL><northBL Sync="TRUE">71.390482</northBL><southBL Sync="TRUE">18.910885</southBL><exTypeCode Sync="TRUE">1</exTypeCode></geoBox></dataIdInfo><mdLang><languageCode Sync="TRUE" value="en"></languageCode></mdLang><mdStanName Sync="TRUE">ISO 19115 Geographic Information - Metadata</mdStanName><mdStanVer Sync="TRUE">DIS_ESRI1.0</mdStanVer><mdChar><CharSetCd Sync="TRUE" value="004"></CharSetCd></mdChar><mdHrLv><ScopeCd Sync="TRUE" value="005"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><distInfo><distributor><distorTran><onLineSrc><orDesc Sync="TRUE">002</orDesc><linkage Sync="TRUE">file://\\GWANG\C$\temp\data\Ducks_Unlimited_Flyways.shp</linkage><protocol Sync="TRUE">Local Area Network</protocol></onLineSrc><transSize Sync="TRUE">0.389</transSize></distorTran><distorFormat><formatName Sync="TRUE">Shapefile</formatName></distorFormat></distributor></distInfo><refSysInfo><RefSystem><refSysID><identCode Sync="TRUE">GCS_WGS_1984</identCode></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><topLvl><TopoLevCd Sync="TRUE" value="001"></TopoLevCd></topLvl><geometObjs Name="Ducks_Unlimited_Flyways"><geoObjTyp><GeoObjTypCd Sync="TRUE" value="001"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">4</geoObjCnt></geometObjs></VectSpatRep></spatRepInfo><mdDateSt Sync="TRUE">20071004</mdDateSt></metadata>
