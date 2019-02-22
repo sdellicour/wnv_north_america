@@ -495,50 +495,50 @@ pathModel = 3; outputName = "WNV_circuitscape_simulations"
 spreadFactors(localTreesDirectory,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
 			  nberOfRandomisations,randomProcedure,outputName,showingPlots,nberOfCores,OS,simulations)
 
+extractions = list(); simulations = list(); pathModels = c("Least-cost path model","Circuitscape path model")
+extractions[[1]] = read.table("Seraphim_analyses/WNV_least-cost_extractions_16_LR_results.txt", header=T)
+extractions[[2]] = read.table("Seraphim_analyses/WNV_circuitscape_extractions_16_LR_results.txt", header=T)
+simulations[[1]] = read.table("Seraphim_analyses/WNV_least-cost_simulations_16_LR_results.txt", header=T)
+simulations[[2]] = read.table("Seraphim_analyses/WNV_circuitscape_simulations_16_LR_results.txt", header=T)
 envVariableNames = c("Elevation","Land_cover_forests","Land_cover_shrublands","Land_cover_savannas","Land_cover_grasslands",
 					 "Land_cover_croplands","Land_cover_water","Annual_mean_temperature","Annual_precipitation"); c = 0
-extractions_LC = read.table("Seraphim_analyses/WNV_least-cost_extractions_16_LR_results.txt", header=T)
-simulations_LC = read.table("Seraphim_analyses/WNV_least-cost_simulations_16_LR_results.txt", header=T)
-extractions_CS = read.table("Seraphim_analyses/WNV_circuitscape_extractions_16_LR_results.txt", header=T)
-simulations_CS = read.table("Seraphim_analyses/WNV_circuitscape_simulations_16_LR_results.txt", header=T)
-results_Qs = matrix(nrow=length(envVariableNames)*3, ncol=4); colnames(results_Qs) = c("LC-C","LC-R","CS-C","CS-R")
-results_BF = matrix(nrow=length(envVariableNames)*3, ncol=4); colnames(results_BF) = c("LC-C","LC-R","CS-C","CS-R")
-for (i in 1:length(envVariableNames))
+allResults = matrix(nrow=length(envVariableNames)*2*2*3, ncol=7); kS = c(10,100,1000); CR = c("C","R"); L = 0
+colnames(allResults) = c("Path model","Environmental factor","k","Regression coefficient","Q statistic","p(Q) > 0","BF")
+for (i in 1:length(pathModels))
 	{
-		for (k in c(10,100,1000))
+		for (j in 1:length(envVariableNames))
 			{
-				if ((i == 1)&(k == 10))
+				for (k in 1:length(CR))
 					{
-						n = 0; rowNames = rep(NA, length(envVariableNames)*3)
-					}
-				n = n+1; rowNames[n] = paste0(envVariableNames[i],"_k",k); Qe = list(); Qs = list()
-				index1 = which(grepl("delta_R2",colnames(extractions_LC))&grepl(envVariableNames[i],colnames(extractions_LC))&grepl(paste0("k",k,"_C"),colnames(extractions_LC)))
-				index2 = which(grepl("delta_R2",colnames(simulations_LC))&grepl(envVariableNames[i],colnames(simulations_LC))&grepl(paste0("k",k,"_C"),colnames(simulations_LC)))
-				Qe[[1]] = extractions_LC[,index1]; Qs[[1]] = simulations_LC[,index2]
-				index1 = which(grepl("delta_R2",colnames(extractions_LC))&grepl(envVariableNames[i],colnames(extractions_LC))&grepl(paste0("k",k,"_R"),colnames(extractions_LC)))
-				index2 = which(grepl("delta_R2",colnames(simulations_LC))&grepl(envVariableNames[i],colnames(simulations_LC))&grepl(paste0("k",k,"_R"),colnames(simulations_LC)))
-				Qe[[2]] = extractions_LC[,index1]; Qs[[2]] = simulations_LC[,index2]
-				index1 = which(grepl("delta_R2",colnames(extractions_CS))&grepl(envVariableNames[i],colnames(extractions_CS))&grepl(paste0("k",k,"_C"),colnames(extractions_CS)))
-				index2 = which(grepl("delta_R2",colnames(simulations_CS))&grepl(envVariableNames[i],colnames(simulations_CS))&grepl(paste0("k",k,"_C"),colnames(simulations_CS)))
-				Qe[[3]] = extractions_CS[,index1]; Qs[[3]] = simulations_CS[,index2]
-				index1 = which(grepl("delta_R2",colnames(extractions_CS))&grepl(envVariableNames[i],colnames(extractions_CS))&grepl(paste0("k",k,"_R"),colnames(extractions_CS)))
-				index2 = which(grepl("delta_R2",colnames(simulations_CS))&grepl(envVariableNames[i],colnames(simulations_CS))&grepl(paste0("k",k,"_R"),colnames(simulations_CS)))
-				Qe[[4]] = extractions_CS[,index1]; Qs[[4]] = simulations_CS[,index2]
-				for (j in 1:length(Qe))
-					{
-						results_Qs[n,j] = sum(Qe[[j]]>0)
-						c = 0
-						for (l in 1:length(Qe[[j]]))
+						for (l in 1:length(kS))
 							{
-								if (Qs[[j]][l] < Qe[[j]][l]) c = c+1
+								L = L+1
+								allResults[L,1] = pathModels[i]
+								allResults[L,2] = paste0(envVariableNames[j]," (",CR[k],")")
+								allResults[L,3] = kS[l]
+								index1 = which(grepl("LR_R2",colnames(extractions[[i]]))&grepl(envVariableNames[j],colnames(extractions[[i]]))&grepl(paste0("k",kS[l],"_",CR[k]),colnames(extractions[[i]])))
+								index2 = which(grepl("delta_R2",colnames(extractions[[i]]))&grepl(envVariableNames[j],colnames(extractions[[i]]))&grepl(paste0("k",kS[l],"_",CR[k]),colnames(extractions[[i]])))
+								index3 = which(grepl("delta_R2",colnames(simulations[[i]]))&grepl(envVariableNames[j],colnames(simulations[[i]]))&grepl(paste0("k",kS[l],"_",CR[k]),colnames(simulations[[i]])))
+								R2 = extractions[[i]][,index1]; Qe = extractions[[i]][,index2]; Qs = simulations[[i]][,index3]; c = 0
+								for (m in 1:length(Qe))
+									{
+										if (Qs[m] < Qe[m]) c = c+1
+									}
+								p = c/length(Qe); BF = p/(1-p)
+								allResults[L,4] = paste0(round(median(R2),3)," [",round(quantile(R2,0.025),3)," - ",round(quantile(R2,0.975),3),"]")
+								allResults[L,5] = paste0(round(median(Qe),3)," [",round(quantile(Qe,0.025),3)," - ",round(quantile(Qe,0.975),3),"]")
+								allResults[L,6] = sum(Qe>0)/nberOfExtractionFiles
+								if (as.numeric(allResults[L,6]) >= 0.9)
+									{
+										allResults[L,7] = round(BF,1)
+									}	else	{
+										allResults[L,7] = "-"
+									}
 							}
-						p = c/length(Qe[[j]])
-						results_BF[n,j] = p/(1-p)
 					}
 			}
 	}
-row.names(results_Qs) = rowNames; cat("% of Q distributions >0:"); cat("\n"); print(round(results_Qs,0))
-row.names(results_BF) = rowNames; cat("Asspciated BF supports:"); cat("\n"); print(round(results_BF,0))
+write.csv(allResults, "Seraphim_analyses.csv", row.names=F, quote=F)
 
 dev.new(width=6, height=2.5); par(mfrow=c(1,1), mgp=c(1,0.35,0), oma=c(0.5,1,1,1), mar=c(2.5,2,0.5,0), lwd=0.2)
 envVariableNames = c("Annual_mean_temperature_C"); envVariableTitle1 = c("Impact of annual mean temperature")
