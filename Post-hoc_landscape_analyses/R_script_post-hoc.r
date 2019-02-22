@@ -15,9 +15,8 @@ library(OutbreakTools)
 		# 3.5. Plotting dispersal history graph snapshots
 	# 4. Estimating and plotting different dispersal statistics
 	# 5. Performing RRW simulations along trees (null model)
-	# 6. Testing the impact of environmental factors on lineage dispersal tendency
-	# 7. Testing the impact of environmental factors on lineage dispersal velocity
-	# 8. Testing the impact of theoritical flyways on lineage dispersal frequency
+	# 6. Testing the impact of environmental factors on lineage dispersal velocity
+	# 7. Testing the impact of theoritical flyways on lineage dispersal frequency
 	
 e_WNV = extent(-128, -63, 19, 55) # extent of study area
 localTreesDirectory = "Tree_extractions/WNV4_gamma_100"
@@ -454,44 +453,7 @@ for (i in 1:nberOfExtractionFiles)
 		write.csv(output, file, row.names=F, quote=F)
 	}
 
-# 6. Testing the impact of environmental factors on lineage dispersal tendency
-
-localTreesDirectory1 = "Tree_extractions/WNV4_gamma_100"
-localTreesDirectory2 = "Tree_extractions/WNV4_internal_100"
-for (i in 1:nberOfTreesToSample)
-	{
-		tab1 = read.csv(paste0(localTreesDirectory1,"/TreeExtractions_",i,".csv"), header=T)
-		tab2 = tab1; tab2 = tab2[which(tab2[,"node2"]%in%tab2[,"node1"]),]
-		write.csv(tab2, paste0(localTreesDirectory2,"/TreeExtractions_",i,".csv"), row.names=F, quote=F)
-		tab1 = read.csv(paste0(localTreesDirectory1,"/TreeSimulations_",i,".csv"), header=T)
-		tab2 = tab1; tab2 = tab2[which(tab2[,"node2"]%in%tab2[,"node1"]),]
-		write.csv(tab2, paste0(localTreesDirectory2,"/TreeSimulations_",i,".csv"), row.names=F, quote=F)
-	}
-
-envVariables = list(); resistances = list(); avgResistances = list(); fourCells = FALSE
-nberOfRandomisations = 1; randomProcedure = 2; showingPlots = FALSE; nberOfCores = 10; OS = "Unix"; simulations = FALSE
-envVariableNames = c("Elevation","Land_cover_forests","Land_cover_shrublands","Land_cover_savannas","Land_cover_grasslands",
-					 "Land_cover_croplands","Annual_mean_temperature","Annual_precipitation"); c = 0
-for (i in 1:length(envVariableNames))
-	{
-		rast = raster(paste("Environmental_files/WNV_rasters/",envVariableNames[i],"_WNV_16.asc",sep=""))
-		c = c+1; envVariables[[c]] = rast; names(envVariables[[c]]) = envVariableNames[i]
-		resistances[[c]] = TRUE; avgResistances[[c]] = TRUE
-	}
-for (i in 1:length(envVariableNames))
-	{
-		rast = raster(paste("Environmental_files/WNV_rasters/",envVariableNames[i],"_WNV_16.asc",sep=""))
-		c = c+1; envVariables[[c]] = rast; names(envVariables[[c]]) = envVariableNames[i]
-		resistances[[c]] = FALSE; avgResistances[[c]] = FALSE
-	}
-pathModel = 0; localTreesDirectory1 = "Tree_extractions/WNV4_gamma_100"; outputName = "WNV_dispersal_tendency_allBranches"
-spreadFactors(localTreesDirectory1,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-			  nberOfRandomisations,randomProcedure,outputName,showingPlots,nberOfCores,OS,simulations)
-pathModel = 0; localTreesDirectory2 = "Tree_extractions/WNV4_internal_100"; outputName = "WNV_dispersal_tendency_internalBrs"
-spreadFactors(localTreesDirectory2,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-			  nberOfRandomisations,randomProcedure,outputName,showingPlots,nberOfCores,OS,simulations)
-
-# 7. Testing the impact of environmental factors on lineage dispersal velocity
+# 6. Testing the impact of environmental factors on lineage dispersal velocity
 
 envVariables = list(); resistances = list(); avgResistances = list(); fourCells = FALSE
 nberOfRandomisations = 0; randomProcedure = 3; showingPlots = FALSE; nberOfCores = 10; OS = "Unix"; simulations = FALSE
@@ -617,7 +579,7 @@ for (i in 1:length(envVariableNames))
 	}
 dev.copy2pdf(file="Impact_dispersal_velocity.pdf")
 
-# 8. Testing the impact of theoritical flyways on lineage dispersal frequency
+# 7. Testing the impact of theoritical flyways on lineage dispersal frequency
 
 flyways = readOGR(dsn="Environmental_files/WNV_shapefiles/", layer="Migratory_birds_flyways")
 rast1 = raster("Environmental_files/WNV_rasters/Elevation_WNV_08.asc"); rast1[!is.na(rast1[])] = 0
