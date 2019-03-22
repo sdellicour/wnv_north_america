@@ -380,7 +380,64 @@ dev.copy2pdf(file="Figure1_dispersal_velocity.pdf")
 
 # 5. Performing RRW simulations along trees (null model)
 
-simulationsDirectory = localTreesDirectory; oneHullPerTree = FALSE
+simulationsDirectory = localTreesDirectory; n1 = 100; n2 = 100; showingPlots = FALSE; newPlot = FALSE; model = "gamma"
+trees = read.annotated.nexus("WNV_RRW_100.trees"); log = read.table("WNV_RRW_100_b.log", header=T)
+for (i in 1:nberOfExtractionFiles)
+	{
+		tab = read.csv(paste0(localTreesDirectory,"/TreeExtractions_",i,".csv"), header=T)
+		rast1 = raster("Environmental_files/WNV_rasters/Elevation_WNV_04.asc"); rast1[!is.na(rast1[])] = 0
+		 if (i == 1)
+		 	{
+		 		points1 = tab[,c("startLon","startLat")]; points2 = tab[,c("endLon","endLat")]
+		 	}	else		{
+		 		points1 = rbind(points1, tab[,c("startLon","startLat")])
+		 		points2 = rbind(points2, tab[,c("endLon","endLat")])
+		 	}
+	}
+colnames(points1) = c("lon","lat"); colnames(points2) = c("lon","lat")
+points = rbind(points1,points2); hull = chull(points); hull = c(hull,hull[1])
+p = Polygon(points[hull,]); ps = Polygons(list(p),1); sps = SpatialPolygons(list(ps))
+pointsRaster = rasterize(points, crop(rast1, sps, snap="out"))
+pointsRaster[!is.na(pointsRaster[])] = 0; # plot(mask(simRasters[[h]],sps))
+hullRaster = crop(rast1, sps, snap="out"); bufferRaster = hullRaster
+rast2 = mask(hullRaster, sps, snap="out")
+rast2[!is.na(pointsRaster[])] = bufferRaster[!is.na(pointsRaster[])]
+for (i in 1:nberOfExtractionFiles)
+	{
+		print(paste0("Simulating tree #",i))
+		tree = trees[[i]]; envVariables = list(rast2)
+		rates = c(); geoDists = matrix(nrow=dim(tab)[1], ncol=1)
+		for (j in 1:length(tree$annotations))
+			{
+				rates = c(rates, tree$annotations[[j]]$location.rate)
+			}
+		for (j in 1:dim(tab)[1])
+			{
+				x1 = cbind(tab[j,"startLon"], tab[j,"startLat"])
+				x2 = cbind(tab[j,"endLon"], tab[j,"endLat"])
+				geoDists[j,1] = rdist.earth(x1, x2, miles=F, R=NULL)
+			}
+		ancestID = which(!tab[,"node1"]%in%tab[,"node2"])[1]
+		ancestPosition = c(tab[ancestID,"startLon"], tab[ancestID,"startLat"])
+		col11 = log[i,"treeLengthPrecision1"]
+		col12 = log[i,"treeLengthPrecision3"]
+		col22 = log[i,"treeLengthPrecision2"]
+		my_prec = c(col11, col12, col12, col22)
+		if (model == "cauchy") reciprocalRates = TRUE
+		if (model == "gamma") reciprocalRates = TRUE
+		if (model == "logN") reciprocalRates = FALSE
+		my_var = solve(matrix(my_prec,nrow=2))		
+		sigma1 = sqrt(my_var[1,1]); sigma2 = sqrt(my_var[2,2])
+		sigmas = c(sigma1, sigma2); # source("simulatorRRW1_mod.r")
+		cor = my_var[1,2]/(sqrt(my_var[1,1])*sqrt(my_var[2,2]))
+		source("Seraphim_functions/simulatorRRW1.r"); # showingPlots = TRUE; newPlot = TRUE
+		output = simulatorRRW1(tree, rates, sigmas, cor, envVariables, mostRecentSamplingDatum,
+							   ancestPosition, reciprocalRates, n1, n2, showingPlots, newPlot)
+		file = as.character(paste(simulationsDirectory,"/TreeSimulations_",i,".csv",sep=""))
+		write.csv(output, file, row.names=F, quote=F)
+	}
+
+n1 = 100; n2 = 100; simulationsDirectory = localTreesDirectory; oneHullPerTree = FALSE
 showingPlots = FALSE; nodesOnly = FALSE; newPlot = FALSE; pointCol = "black"; model = "gamma"
 trees = read.annotated.nexus("WNV_RRW_100.trees"); log = read.table("WNV_RRW_100_b.log", header=T)
 for (i in 1:nberOfExtractionFiles)
