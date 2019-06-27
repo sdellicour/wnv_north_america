@@ -15,9 +15,11 @@ library(OutbreakTools)
 		# 3.5. Plotting dispersal history graph snapshots
 	# 4. Estimating and plotting different dispersal statistics
 	# 5. Performing RRW simulations along trees (null model)
-	# 6. Testing the impact of environmental factors on lineage dispersal velocity
-	# 7. Testing the impact of theoritical flyways on lineage dispersal frequency
-	
+	# 6. Testing the impact of environmental factors on branch dispersal velocity
+	# 7. Testing the impact of migratory flyways on branch dispersal frequency
+		# 7.1. Testing the impact of the four US administrative flyways (NAMFs)
+		# 7.2. Testing the impact of the three flyways estimated by La Sorte et al. (2014) for terrestrial birds
+
 e_WNV = extent(-128, -63, 19, 55) # extent of study area
 localTreesDirectory = "Tree_extractions/WNV4_gamma_100"
 nberOfExtractionFiles = 100; mostRecentSamplingDatum = 2016.6475
@@ -510,7 +512,7 @@ for (i in 1:nberOfExtractionFiles)
 		write.csv(output, file, row.names=F, quote=F)
 	}
 
-# 6. Testing the impact of environmental factors on lineage dispersal velocity
+# 6. Testing the impact of environmental factors on branch dispersal velocity
 
 envVariables = list(); resistances = list(); avgResistances = list(); fourCells = FALSE
 nberOfRandomisations = 0; randomProcedure = 3; showingPlots = FALSE; nberOfCores = 10; OS = "Unix"; simulations = FALSE
@@ -599,7 +601,7 @@ write.csv(allResults, "Seraphim_analyses.csv", row.names=F, quote=F)
 
 dev.new(width=6, height=2.5); par(mfrow=c(1,1), mgp=c(1,0.35,0), oma=c(0.5,1,1,1), mar=c(2.5,2,0.5,0), lwd=0.2)
 envVariableNames = c("Annual_mean_temperature_C"); envVariableTitle1 = c("Impact of annual mean temperature")
-envVariableTitle2 = c("on lineage dispersal velocity"); envVariableTitle3 = c("(tested as conductance factor)")
+envVariableTitle2 = c("on branch dispersal velocity"); envVariableTitle3 = c("(tested as conductance factor)")
 Qe = list(); Qs = list(); cols1 = list(); cols2 = list(); kS = c(100,1000); ltys = c(1,3); xLim=c(-0.17,0.1)
 cols1[[1]] = rgb(204,0,0,255,maxColorValue=255); cols2[[1]] = rgb(204,0,0,100,maxColorValue=255) # red
 cols1[[2]] = rgb(120,120,120,255,maxColorValue=255); cols2[[2]] = rgb(120,120,120,100,maxColorValue=255) # red
@@ -636,7 +638,9 @@ for (i in 1:length(envVariableNames))
 	}
 dev.copy2pdf(file="Impact_dispersal_velocity.pdf")
 
-# 7. Testing the impact of theoritical flyways on lineage dispersal frequency
+# 7. Testing the impact of migratory flyways on branch dispersal frequency
+
+	# 7.1. Testing the impact of the four US administrative flyways (NAMFs)
 
 flyways = readOGR(dsn="Environmental_files/WNV_shapefiles/", layer="Migratory_birds_flyways")
 rast1 = raster("Environmental_files/WNV_rasters/Elevation_WNV_08.asc"); rast1[!is.na(rast1[])] = 0
@@ -678,6 +682,47 @@ for (i in 1:dim(ratiosOfChangingFlywayEvents)[1])
 	{
 		if (ratiosOfChangingFlywayEvents[i,"extractions"] < ratiosOfChangingFlywayEvents[i,"simulations"]) c = c+1
 	}
-write.csv(ratiosOfChangingFlywayEvents, "WNV_ratios_of_changing_flyway_events.csv.csv", quote=F, row.names=F)
 p = c/dim(ratiosOfChangingFlywayEvents)[1]; BF = p/(1-p); print(BF)
+
+	# 7.2. Testing the impact of the three flyways estimated by La Sorte et al. (2014) for terrestrial birds
+
+rast = raster("Environmental_files/WNV_rasters/Western_flyway_normalised.asc"); rast[!is.na(rast[])] = 0
+differenceBetweenFlywayValues = matrix(nrow=nberOfExtractionFiles, ncol=3); flyways = list()
+colnames(differenceBetweenFlywayValues) = c("extractions","simulations","randomisations")
+flyways[[1]] = raster("Environmental_files/WNV_rasters/Eastern_flyway_normalised.asc")
+flyways[[2]] = raster("Environmental_files/WNV_rasters/Central_flyway_normalised.asc")
+flyways[[3]] = raster("Environmental_files/WNV_rasters/Western_flyway_normalised.asc")
+for (i in 1:nberOfExtractionFiles)
+	{
+		tabs = list(); print(i)
+		tabs[[1]] = read.csv(paste0(localTreesDirectory,"/TreeExtractions_",i,".csv"), header=T)
+		tabs[[2]] = read.csv(paste0(localTreesDirectory,"/TreeSimulations_",i,".csv"), header=T)
+		for (j in 1:length(tabs))
+			{
+				indices = which((!is.na(extract(rast,tabs[[j]][,c("startLon","startLat")])))
+								&(!is.na(extract(rast,tabs[[j]][,c("endLon","endLat")]))))
+				tab = tabs[[j]][indices,]; diffs = c()
+				startingValues = matrix(nrow=dim(tab)[1], ncol=length(flyways))
+				endingValues = matrix(nrow=dim(tab)[1], ncol=length(flyways))
+				for (k in 1:length(flyways))
+					{
+						startingValues[,k] = extract(flyways[[k]], tab[,c("startLon","startLat")])
+						endingValues[,k] = extract(flyways[[k]], tab[,c("endLon","endLat")])
+					}	
+				for (k in 1:dim(tab)[1])
+					{
+						startingValue = max(startingValues[k,])
+						index = which(startingValues[k,]==startingValue)
+						endingValue = endingValues[k,index]
+						diffs = c(diffs, endingValue-startingValue)
+					}
+				differenceBetweenFlywayValues[i,j] = mean(diffs)
+			}
+	}
+c = 0
+for (i in 1:dim(differenceBetweenFlywayValues)[1])
+	{
+		if (differenceBetweenFlywayValues[i,"extractions"] > differenceBetweenFlywayValues[i,"simulations"]) c = c+1
+	}
+p = c/dim(differenceBetweenFlywayValues)[1]; BF = p/(1-p); print(BF)
 
