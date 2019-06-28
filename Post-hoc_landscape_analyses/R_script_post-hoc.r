@@ -323,32 +323,12 @@ for (h in 1:2)
 timSlices = 200; onlyTipBranches = FALSE; showingPlots = FALSE; outputName = "WNV"; nberOfCores = 1; slidingWindow = 1
 spreadStatistics(localTreesDirectory, nberOfExtractionFiles, timSlices, onlyTipBranches, showingPlots, outputName, nberOfCores, slidingWindow)
 
-statistics = c("mean_branch_velocity","weighted_dispersal_velocity","original_diffusion_coefficient_.Pybus_et_al_2012.","diffusion_coefficient_.Trovao_et_al_2015.")
-rounds = c(2,2,1,1); genotypes = c("II","III"); n = 0; results = matrix(nrow=4, ncol=4); colNames = c()
-for (a in 1:length(analyses))
-	{
-		for (g in 1:length(genotypes))
-			{
-				n = n+1; colNames = c(colNames, paste0(analyses[a],"_genotype_",genotypes[g]))
-				tab = read.table(paste0("Dispersal_stat_estimates/",analyses[a],"_gen",genotypes[g],"_estimated_statistics.txt"), header=T)
-				for (s in 1:length(statistics))
-					{
-						median = round(median(tab[,statistics[s]]),rounds[s])
-						qtiles = round(quantile(tab[,statistics[s]],c(0.025,0.975)),rounds[s])
-						results[s,n] = as.character(paste0(median," [",qtiles[1],"-",qtiles[2],"]"))
-					}
-			}
-	}
-rowNames = c("Mean branch velocity (km/year)","Weighted dispersal velocity (km/year)",
-			 "Original diffusion coefficient (km2/year)","Weighted diffusion coefficient (km2/year)")
-row.names(results) = rowNames; colnames(results) = colNames; write.table(results, "Dispersal_statistics.txt", sep="	", quote=F)
-
 stats = read.table("Dispersal_statistics/WNV_estimated_dispersal_statistics.txt", header=T)
-v = stats[,"weighted_dispersal_velocity"]; D = stats[,"weighted_diffusion_coefficient"]
-cat("Weighted branch dispersal velocity:"); cat("\n"); cat("\t")
+v = stats[,"mean_branch_dispersal_velocity"]; D = stats[,"original_diffusion_coefficient"]; D = D/365
+cat("Mean branch dispersal velocity:"); cat("\n"); cat("\t")
 cat(paste0(round(mean(v),1)," km/year, 95% HPD = [",round(quantile(v,0.025),1),",",round(quantile(v,0.975),1),"]"))
-cat("Weighted diffusion coefficient:"); cat("\n"); cat("\t")
-cat(paste0(round(mean(D))," km2/year, 95% HPD = [",round(quantile(D,0.025)),",",round(quantile(D,0.975)),"]"))
+cat("Original diffusion coefficient:"); cat("\n"); cat("\t")
+cat(paste0(round(mean(D),1)," km2/day, 95% HPD = [",round(quantile(D,0.025),1),",",round(quantile(D,0.975),1),"]"))
 
 dev.new(width=4, height=1.5); par(mgp=c(0,0,0), oma=c(0.8,0.8,0,0), mar=c(1.5,1.5,1,1))
 col1 = rgb(100, 100, 100, 255, maxColorValue=255); col2 = rgb(100, 100, 100, 100, maxColorValue=255)
@@ -363,13 +343,15 @@ axis(side=1, pos=0, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.05,0), lwd=0.2, tck=-
 axis(side=2, pos=1998, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.20,0), lwd=0.2, tck=-0.045, col.axis="gray30")
 title(xlab="time (year)", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
 title(ylab="distance (km)", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
+# title(main="Furthest extent of epidemic wavefront (spatial distance from epidemic origin)", cex.main=0.55, col.main="gray30", line=0.3)
+# rect(1998, 0, 2012, 4300, lwd=0.2, border="gray30"); # box(lwd=0.2, col="gray30")
 dev.copy2pdf(file="Figure1_spatial_wavefronts.pdf")
 
-dev.new(width=4, height=3); par(mgp=c(0,0,0), oma=c(0.8,0.8,0,0), mar=c(1.5,1.5,1,1))
+dev.new(width=4, height=4); par(mgp=c(0,0,0), oma=c(0.8,0.8,0,0), mar=c(1.5,1.5,1,1))
 col1 = rgb(100, 100, 100, 255, maxColorValue=255); col2 = rgb(100, 100, 100, 100, maxColorValue=255)
-tab1 = read.table("Dispersal_statistics/WNV_mean_dispersal_velocity_SDyear.txt", header=T)
-tab2 = read.table("Dispersal_statistics/WNV_95%HPD_dispersal_velocity_SDyear.txt", header=T)
-plot(tab1[,1], tab1[,2], type="l", axes=F, ann=F, ylim=c(0,600), xlim=c(1998,2010), col=NA)
+tab1 = read.table("Dispersal_statistics/WNV_median_mean_branch_dispersal_velocity.txt", header=T)
+tab2 = read.table("Dispersal_statistics/WNV_95%HPD_mean_branch_dispersal_velocity.txt", header=T)
+plot(tab1[,1], tab1[,2], type="l", axes=F, ann=F, ylim=c(0,10000), xlim=c(1998,2010), col=NA)
 slicedTimes = tab1[,1]; branchDispersalVelocityMeanValue = tab1[,2]; lower_l_1 = tab2[,2]; upper_l_1 = tab2[,3]
 xx_l = c(slicedTimes,rev(slicedTimes)); yy_l = c(lower_l_1,rev(upper_l_1))
 getOption("scipen"); opt = options("scipen"=20); polygon(xx_l, yy_l, col=col2, border=0)
@@ -377,8 +359,10 @@ lines(slicedTimes, branchDispersalVelocityMeanValue, lwd=1, col=col1)
 axis(side=1, pos=0, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.05,0), lwd=0.2, tck=-0.050, col.axis="gray30")
 axis(side=2, pos=1998, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.20,0), lwd=0.2, tck=-0.045, col.axis="gray30")
 title(xlab="time (year)", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
-title(ylab="mean branche dispersal velocity", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
-dev.copy2pdf(file="Figure1_dispersal_velocity.pdf")
+title(ylab="mean branch dispersal velocity", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
+# title(main="Furthest extent of epidemic wavefront (spatial distance from epidemic origin)", cex.main=0.55, col.main="gray30", line=0.3)
+# rect(1998, 0, 2012, 4300, lwd=0.2, border="gray30"); # box(lwd=0.2, col="gray30")
+dev.copy2pdf(file="Figure1_branch_dispersal_velocity.pdf")
 
 # 5. Performing RRW simulations along trees (null model)
 
