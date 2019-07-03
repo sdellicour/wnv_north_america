@@ -3,7 +3,6 @@ library(diagram)
 library(adephylo)
 library(seraphim)
 library(lubridate)
-library(OutbreakTools)
 
 	# 1. Plotting the different environmental rasters
 	# 2. Extraction of the spatio-temporal information embedded in 100 trees
@@ -92,7 +91,7 @@ system(paste0("BEAST_ver_1.10.4/bin/treeannotator -burninTrees 0 -heights keep W
 
 	# 3.2. Extraction of the spatio-temporal information embedded in the MCC tree
 
-mcc_tre = read.annotated.nexus("WNV_RRW_MCC.tree")
+mcc_tre = readAnnotatedNexus("WNV_RRW_MCC.tree")
 mcc_tab = matrix(nrow=dim(mcc_tre$edge)[1], ncol=11)
 colnames(mcc_tab) = c("node1","node2","length","startLon","startLat","endLon","endLat","startNodeL","endNodeL","startYear","endYear")
 mcc_tab[,c("node1","node2")] = mcc_tre$edge; mcc_tab[,c("length")] = mcc_tre$edge.length
