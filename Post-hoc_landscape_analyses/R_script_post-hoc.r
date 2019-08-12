@@ -1,3 +1,4 @@
+library(rgdal)
 library(rgeos)
 library(diagram)
 library(adephylo)
@@ -55,16 +56,17 @@ dev.new(width=7.5, height=5.6); par(mfrow=c(3,3), oma=c(2,2.5,1,0.3), mar=c(0,0,
 for (i in 1:length(rS))
 	{
 		plot(rS[[i]], bty="n", box=F, axes=F, legend=F, col=cols[[i]], colNA="#D0D0D0")
-		axis(1, c(xmin,xmax), labels=labsX, pos=ymin(rS[[i]]), cex.axis=0.6, lwd=0, lwd.tick=0.2, tck=-0.02, mgp=c(0,0.10,0), col="gray30")
-		axis(2, c(ymin,ymax), labels=labsY, pos=xmin(rS[[i]]), cex.axis=0.6, lwd=0, lwd.tick=0.2, tck=-0.02, mgp=c(0,0.27,0), col="gray30")
+		axis(1, c(xmin,xmax), labels=labsX, pos=ymin(rS[[i]]), col="gray30", cex.axis=0.6, col.axis="gray30", lwd=0, lwd.tick=0.2, col.tick="gray30", tck=-0.02, mgp=c(0,0.10,0))
+		axis(2, c(ymin,ymax), labels=labsY, pos=xmin(rS[[i]]), col="gray30", cex.axis=0.6, col.axis="gray30", lwd=0, lwd.tick=0.2, col.tick="gray30", tck=-0.02, mgp=c(0,0.27,0))
 		if (i == 1)
 			{
 				plot(rS[[i]], legend.only=T, add=T, col=cols[[i]], legend.width=0.5, legend.shrink=0.3, smallplot=c(0.78,0.795,0.18,0.45), adj=3,
-		     		 axis.args=list(cex.axis=0.6, lwd=0, lwd.tick=0.2, tck=-0.8, col.axis="gray30", line=0, mgp=c(0,0.4,0), at=c(0), labels=c(0)), alpha=1, side=3)
+					 axis.args=list(cex.axis=0.6, lwd=0, lwd.tick=0.2, col.tick="gray30", tck=-0.8, col="gray30", col.axis="gray30", line=0, 
+					 mgp=c(0,0.4,0), at=c(0), labels=c(0)), alpha=1, side=3)
 				mtext("4651", side=3, adj=1, line=-7.1, at=-66, cex=0.45, font=1, col="gray30")
 			}	else	{
 				plot(rS[[i]], legend.only=T, add=T, col=cols[[i]], legend.width=0.5, legend.shrink=0.3, smallplot=c(0.78,0.795,0.18,0.54), adj=3,
-		     		 axis.args=list(cex.axis=0.6, lwd=0, lwd.tick=0.2, tck=-0.8, col.axis="gray30", line=0, mgp=c(0,0.4,0)), alpha=1, side=3)
+					 axis.args=list(cex.axis=0.6, lwd=0, lwd.tick=0.2, col.tick="gray30", tck=-0.8, col="gray30", col.axis="gray30", line=0, mgp=c(0,0.4,0)), alpha=1, side=3)
 		     }
 		if (nchar(envVariableNames1[i] > 0)) mtext(envVariableNames1[i], side=1, adj=0, line=-3.1, at=-126, cex=0.55, font=1, col="gray30")
 		if (nchar(envVariableNames2[i] > 0)) mtext(envVariableNames2[i], side=1, adj=0, line=-2.3, at=-126, cex=0.55, font=1, col="gray30")
@@ -74,7 +76,7 @@ dev.copy2pdf(file="Environmental_rasters.pdf")
 
 # 2. Extraction of the spatio-temporal information embedded in 100 trees
 
-allTrees = scan(file="WNV_RRW_100.trees", what="", sep="\n", quiet=TRUE)
+allTrees = scan(file="WNV_RRW_100.trees", what="", sep="\n", quiet=T)
 burnIn = 0
 randomSampling = FALSE
 nberOfTreesToSample = 100
@@ -91,29 +93,9 @@ system(paste0("BEAST_ver_1.10.4/bin/treeannotator -burninTrees 0 -heights keep W
 
 	# 3.2. Extraction of the spatio-temporal information embedded in the MCC tree
 
+source("Divers_R_functions/mccTreeExtraction.r")
 mcc_tre = readAnnotatedNexus("WNV_RRW_MCC.tree")
-mcc_tab = matrix(nrow=dim(mcc_tre$edge)[1], ncol=11)
-colnames(mcc_tab) = c("node1","node2","length","startLon","startLat","endLon","endLat","startNodeL","endNodeL","startYear","endYear")
-mcc_tab[,c("node1","node2")] = mcc_tre$edge; mcc_tab[,c("length")] = mcc_tre$edge.length
-for (i in 1:length(mcc_tre$annotations))
-	{
-		annotations = mcc_tre$annotations[[i]]; mcc_tab[i,"endNodeL"] = annotations$height
-		mcc_tab[i,c("endLon","endLat")] = cbind(annotations$location2, annotations$location1)
-	}
-for (i in 1:length(mcc_tre$annotations))
-	{
-		index = which(mcc_tab[,"node2"] == mcc_tab[i,"node1"])
-		if (length(index) > 0)
-			{
-				mcc_tab[i,c("startLon","startLat")] = mcc_tab[index,c("endLon","endLat")]
-				mcc_tab[i,"startNodeL"] = mcc_tab[index,"endNodeL"]
-			}	else		{
-				annotations = mcc_tre$root.annotation; mcc_tab[i,"startNodeL"] = annotations$height
-				mcc_tab[i,c("startLon","startLat")] = cbind(annotations$location2, annotations$location1)
-			}
-		mcc_tab[i,"startYear"] = mostRecentSamplingDatum - mcc_tab[i,"startNodeL"]
-		mcc_tab[i,"endYear"] = mostRecentSamplingDatum - mcc_tab[i,"endNodeL"]
-	}
+mcc_tab = mccTreeExtraction(mcc_tre, mostRecentSamplingDatum)
 write.csv(mcc_tab, "WNV_RRW_MCC.csv", row.names=F, quote=F)
 
 	# 3.3. Estimating annual kernel density polygons
@@ -122,9 +104,10 @@ nodes = c()
 for (i in 1:nberOfExtractionFiles)
 	{
 		tab = read.csv(paste0(localTreesDirectory,"/TreeExtractions_",i,".csv"), header=T)
-		startingNodes = tab[,c("startYear","startLon","startLat")]; colnames(startingNodes) = c("time","lon","lat")
+		startingNodeID = which(!tab[,"node1"]%in%tab[,"node2"])
+		startingNode = tab[startingNodeID,c("startYear","startLon","startLat")]; colnames(startingNode) = c("time","lon","lat")
 		endingNodes = tab[,c("endYear","endLon","endLat")]; colnames(endingNodes) = c("time","lon","lat")
-		nodes = rbind(nodes,startingNodes,endingNodes)
+		nodes = rbind(nodes,startingNode,endingNodes)
 	}
 
 endDays = c("31","27","31","30","31","30","31","31","30","31","30","31")
@@ -143,32 +126,31 @@ for (i in 1:length(years))
 row.names(timePoints) = monthNames; timePoints = timePoints[8:308,] # from August 1991 to August 2016
 write.csv(timePoints, "WNV_time_points.csv", quote=F)
 
-years = c(1991:2016); percentages = c(0.95)
+timePoints = read.csv("WNV_time_points.csv", header=T); percentages = c(0.95)
 for (h in 1:length(percentages))
 	{
 		c = 0; percentage = gsub("\\.","",as.character(percentages[h]))
-		for (i in 1:length(years))
+		for (i in 1:dim(timePoints)[1])
 			{
-				startTime = years[i]; endTime = years[i]+1
-				selectedNodes = nodes[which((nodes[,"time"]>=startTime)&(nodes[,"time"]<endTime)),]
+				selectedNodes = nodes[which((nodes[,"time"]>timePoints[i,"startTime"])&(nodes[,"time"]<timePoints[i,"endTime"])),]
 				if (dim(selectedNodes)[1] > 0)
 					{
 						if (dim(unique(selectedNodes))[1] > 2)
 							{
-								layerName = paste0("WNV_contours_",percentage,"_",years[i])
+								layerName = paste0("WNV_contours_",percentage,"_",row.names(timePoints)[i])
 								if (!file.exists(paste0("WNV_contours_",percentage,"/",layerName,".shp")))
 									{
-										c = c+1; H = Hpi(cbind(selectedNodes[,"lon"],selectedNodes[,"lat"])); print(years[i])
+										c = c+1; H = Hpi(cbind(selectedNodes[,"lon"],selectedNodes[,"lat"])); print(row.names(timePoints)[i])
 										kde = kde(cbind(selectedNodes[,"lon"],selectedNodes[,"lat"]), H=H, compute.cont=T, gridsize=c(1000,1000))
 										contourLevel = contourLevels(kde, prob=0.01); polygons = list()
 										contourLines = contourLines(kde$eval.points[[1]], kde$eval.points[[2]], kde$estimate, level=contourLevel)
 										for (j in 1:length(contourLines)) polygons[[j]] = Polygon(cbind(contourLines[[j]]$x,contourLines[[j]]$y))
-										ps = Polygons(polygons,1); contourPolygons = SpatialPolygons(list(ps)); # plot(contourPolygons, add=T)
+										ps = Polygons(polygons,1); contourPolygons = SpatialPolygons(list(ps))
 										contourPolygons_df = SpatialPolygonsDataFrame(contourPolygons, data.frame(ID=1:length(contourPolygons)))
 										writeOGR(contourPolygons_df, dsn=paste0("./WNV_contours_",percentage), layer=layerName, driver="ESRI Shapefile")
 									}
-							}	else		{
-								write.csv(unique(selectedNodes), paste0("WNV_contours_",percentage,"/WNV_contours_",percentage,"_",years[i],".csv"), quote=F, row.names=F)
+							}	else	{
+								write.csv(unique(selectedNodes), paste0("WNV_contours_",percentage,"/WNV_contours_",percentage,"_",row.names(timePoints)[i],".csv"))
 							}
 					}
 			}
@@ -205,10 +187,10 @@ xmin = -123; xmax = -67; ymin = 21; ymax = 52
 labsX = c(expression(123*degree*W), expression(67*degree*W)); labsY = c(expression(21*degree*N), expression(52*degree*N))
 
 dev.new(width=10, height=5); par(mfrow=c(1,1), oma=c(0,0,0,0), mar=c(1,2.8,0.9,0.5), mgp=c(1,0.2,0), lwd=0.3)
-plot(background, main="", cex.main=1, cex.axis=0.7, bty="n", box=F, axes=F, legend=F, axis.args=list(cex.axis=0.7), col=background_cols, colNA="#D0D0D0")
+plot(background, main="", cex.main=1, bty="n", box=F, axes=F, legend=F, col=background_cols, colNA="#D0D0D0")
 plot(borders, add=T, lwd=1, col="white", lty=1); plot(lakes, add=T, lwd=0.7, col="#D0D0D0", border=NA)
 plot(rast, legend.only=T, add=T, col=cols, legend.width=0.5, legend.shrink=0.3, smallplot=c(0.911,0.917,0.112,0.892), adj=3,
-	 axis.args=list(at=c(1999:2016), cex.axis=0.6, lwd=0, lwd.tick=0.5, tck=-0.5, col.axis="gray30", line=0, mgp=c(0,0.3,0)), alpha=1, side=3)
+	 axis.args=list(at=c(1999:2016), cex.axis=0.6, lwd=0, col="gray30", lwd.tick=0.5, col.tick="gray30", tck=-0.5, col.axis="gray30", line=0, mgp=c(0,0.3,0)), alpha=1, side=3)
 for (i in dim(mcc)[1]:1)
 	{
 		curvedarrow(cbind(mcc[i,"startLon"],mcc[i,"startLat"]), cbind(mcc[i,"endLon"],mcc[i,"endLat"]), arr.length=0,
@@ -224,8 +206,8 @@ for (i in dim(mcc)[1]:1)
 				points(mcc[i,"startLon"], mcc[i,"startLat"], pch=1, col="gray30", cex=0.7, lwd=0.1)
 			}
 	}
-axis(1, c(xmin,xmax), labels=labsX, pos=ymin(r), cex.axis=0.5, lwd=0, lwd.tick=0.3, tck=0.008, mgp=c(0,-1.1,0), col="gray30", asp=2)
-axis(2, c(ymin,ymax), labels=labsY, pos=xmax(r), cex.axis=0.5, lwd=0, lwd.tick=0.5, tck=-0.008, mgp=c(0,0.15,0), col="gray30", asp=2)
+axis(1, c(xmin,xmax), labels=labsX, pos=ymin(r), cex.axis=0.5, col.axis="gray30", lwd=0, lwd.tick=0.3, tck=0.008, col.tick="gray30", mgp=c(0,-1.1,0), col="gray30", asp=2)
+axis(2, c(ymin,ymax), labels=labsY, pos=xmax(r), cex.axis=0.5, col.axis="gray30", lwd=0, lwd.tick=0.5, tck=-0.008, col.tick="gray30", mgp=c(0,0.15,0), col="gray30", asp=2)
 rect(xmin(background), ymin(background), xmax(background), ymax(background), xpd=T, lwd=0.5, border="gray30")
 
 	# 3.5. Plotting dispersal history graph snapshots
@@ -265,7 +247,8 @@ labsY = c(expression(21*degree*N), expression(53*degree*N))
 plotBranches = TRUE; cumulative = FALSE
 for (h in 1:2)
 	{
-		pdf(paste0("Dispersal_years_",h,".pdf"), width=7.5, height=5.6); par(mfrow=c(3,3), oma=c(2,2.5,1,0.3), mar=c(0,0,0,0), mgp=c(1,0.2,0), lwd=0.2)
+		pdf(paste0("WNV_figures_&_SI/SI_files/Dispersal_years_",h,"_NEW.pdf"), width=7.5, height=5.6); par(mfrow=c(3,3), oma=c(2,2.5,1,0.3), mar=c(0,0,0,0), mgp=c(1,0.2,0), lwd=0.2)
+		# dev.new(width=7.5, height=5.6); par(mfrow=c(3,3), oma=c(2,2.5,1,0.3), mar=c(0,0,0,0), mgp=c(1,0.2,0), lwd=0.2)
 		for (i in (((h-1)*9)+(c(1:9))))
 			{
 				if (file.exists(paste0("WNV_contours_095/WNV_contours_095_",years[i],".shp")))
@@ -308,8 +291,8 @@ for (h in 1:2)
 							  			points(mcc[j,"endLon"], mcc[j,"endLat"], pch=1, col="gray30", cex=0.5, lwd=0.01)
 									}
 							}
-						axis(1, c(xmin,xmax), labels=labsX, pos=ymin(rast), cex.axis=0.6, lwd=0, lwd.tick=0.2, tck=-0.02, mgp=c(0,0.10,0), col="gray30")
-						axis(2, c(ymin,ymax), labels=labsY, pos=xmin(rast), cex.axis=0.6, lwd=0, lwd.tick=0.2, tck=-0.02, mgp=c(0,0.27,0), col="gray30")
+						axis(1, c(xmin,xmax), labels=labsX, pos=ymin(rast), cex.axis=0.6, col.axis="gray30", lwd=0, lwd.tick=0.2, tck=-0.02, col.tick="gray30", mgp=c(0,0.10,0), col="gray30")
+						axis(2, c(ymin,ymax), labels=labsY, pos=xmin(rast), cex.axis=0.6, col.axis="gray30", lwd=0, lwd.tick=0.2, tck=-0.02, col.tick="gray30", mgp=c(0,0.27,0), col="gray30")
 						mtext(years[i], side=1, adj=0, line=-2.3, at=-126, cex=0.6, font=1, col="gray30") # col=cols_pol_list[[i]][[length(cols_pol_list[[i]])]])
 						rect(xmin(rast), ymin(rast), xmax(rast), ymax(rast), lwd=0.2, border="gray30")
 					}
@@ -338,12 +321,10 @@ slicedTimes = tab1[,1]; waveFrontDistances1MedianValue = tab1[,2]; lower_l_1 = t
 xx_l = c(slicedTimes,rev(slicedTimes)); yy_l = c(lower_l_1,rev(upper_l_1))
 getOption("scipen"); opt = options("scipen"=20); polygon(xx_l, yy_l, col=col2, border=0)
 lines(slicedTimes, waveFrontDistances1MedianValue, lwd=1, col=col1)
-axis(side=1, pos=0, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.05,0), lwd=0.2, tck=-0.050, col.axis="gray30")
-axis(side=2, pos=1998, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.20,0), lwd=0.2, tck=-0.045, col.axis="gray30")
+axis(side=1, pos=0, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.05,0), lwd=0.2, tck=-0.050, col.tick="gray30", col.axis="gray30", col="gray30")
+axis(side=2, pos=1998, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.20,0), lwd=0.2, tck=-0.045, col.tick="gray30", col.axis="gray30", col="gray30")
 title(xlab="time (year)", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
 title(ylab="distance (km)", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
-# title(main="Furthest extent of epidemic wavefront (spatial distance from epidemic origin)", cex.main=0.55, col.main="gray30", line=0.3)
-# rect(1998, 0, 2012, 4300, lwd=0.2, border="gray30"); # box(lwd=0.2, col="gray30")
 dev.copy2pdf(file="Figure1_spatial_wavefronts.pdf")
 
 dev.new(width=4, height=4); par(mgp=c(0,0,0), oma=c(0.8,0.8,0,0), mar=c(1.5,1.5,1,1))
@@ -355,13 +336,11 @@ slicedTimes = tab1[,1]; branchDispersalVelocityMeanValue = tab1[,2]; lower_l_1 =
 xx_l = c(slicedTimes,rev(slicedTimes)); yy_l = c(lower_l_1,rev(upper_l_1))
 getOption("scipen"); opt = options("scipen"=20); polygon(xx_l, yy_l, col=col2, border=0)
 lines(slicedTimes, branchDispersalVelocityMeanValue, lwd=1, col=col1)
-axis(side=1, pos=0, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.05,0), lwd=0.2, tck=-0.050, col.axis="gray30")
-axis(side=2, pos=1998, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.20,0), lwd=0.2, tck=-0.045, col.axis="gray30")
+axis(side=1, pos=0, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.05,0), lwd=0.2, tck=-0.050, col.tick="gray30", col.axis="gray30", col="gray30")
+axis(side=2, pos=1998, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.20,0), lwd=0.2, tck=-0.045, col.tick="gray30", col.axis="gray30", col="gray30")
 title(xlab="time (year)", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
 title(ylab="mean branch dispersal velocity", cex.lab=0.7, mgp=c(0.5,0,0), col.lab="gray30")
-# title(main="Furthest extent of epidemic wavefront (spatial distance from epidemic origin)", cex.main=0.55, col.main="gray30", line=0.3)
-# rect(1998, 0, 2012, 4300, lwd=0.2, border="gray30"); # box(lwd=0.2, col="gray30")
-dev.copy2pdf(file="Figure1_branch_dispersal_velocity.pdf")
+ddev.copy2pdf(file="Figure1_branch_dispersal_velocity.pdf")
 
 # 5. Performing RRW simulations along trees (null model)
 
@@ -418,79 +397,6 @@ for (i in 1:nberOfExtractionFiles)
 		source("Seraphim_functions/simulatorRRW1.r"); # showingPlots = TRUE; newPlot = TRUE
 		output = simulatorRRW1(tree, rates, sigmas, cor, envVariables, mostRecentSamplingDatum,
 							   ancestPosition, reciprocalRates, n1, n2, showingPlots, newPlot)
-		file = as.character(paste(simulationsDirectory,"/TreeSimulations_",i,".csv",sep=""))
-		write.csv(output, file, row.names=F, quote=F)
-	}
-
-n1 = 100; n2 = 100; simulationsDirectory = localTreesDirectory; oneHullPerTree = FALSE
-showingPlots = FALSE; nodesOnly = FALSE; newPlot = FALSE; pointCol = "black"; model = "gamma"
-trees = read.annotated.nexus("WNV_RRW_100.trees"); log = read.table("WNV_RRW_100_b.log", header=T)
-for (i in 1:nberOfExtractionFiles)
-	{
-		tab = read.csv(paste0(localTreesDirectory,"/TreeExtractions_",i,".csv"), header=T)
-		rast1 = raster("Environmental_files/WNV_rasters/Elevation_WNV_04.asc"); rast1[!is.na(rast1[])] = 0
-		 if (i == 1)
-		 	{
-		 		points1 = tab[,c("startLon","startLat")]; points2 = tab[,c("endLon","endLat")]
-		 	}	else	{
-		 		points1 = rbind(points1, tab[,c("startLon","startLat")])
-		 		points2 = rbind(points2, tab[,c("endLon","endLat")])
-		 	}
-	}
-colnames(points1) = c("lon","lat"); colnames(points2) = c("lon","lat")
-points = rbind(points1,points2); hull = chull(points); hull = c(hull,hull[1])
-p = Polygon(points[hull,]); ps = Polygons(list(p),1); sps = SpatialPolygons(list(ps))
-pointsRaster = rasterize(points, crop(rast1, sps, snap="out"))
-pointsRaster[!is.na(pointsRaster[])] = 0; # plot(mask(simRasters[[h]],sps))
-hullRaster = crop(rast1, sps, snap="out"); bufferRaster = hullRaster
-rast2 = mask(hullRaster, sps, snap="out")
-rast2[!is.na(pointsRaster[])] = bufferRaster[!is.na(pointsRaster[])]
-for (i in 1:nberOfExtractionFiles)
-	{
-		tree = trees[[i]] # i = 1
-		if (oneHullPerTree == TRUE)
-			{
-				tab = read.csv(paste0(localTreesDirectory,"/TreeExtractions_",i,".csv"), header=T)
-				rast1 = raster("Environmental_files/WNV_rasters/Elevation_WNV_04.asc"); rast1[!is.na(rast1[])] = 0
-				points1 = tab[,c("startLon","startLat")]; points2 = tab[,c("endLon","endLat")]
-				colnames(points1) = c("lon","lat"); colnames(points2) = c("lon","lat")
-				points = rbind(points1,points2); hull = chull(points); hull = c(hull,hull[1])
-				p = Polygon(points[hull,]); ps = Polygons(list(p),1); sps = SpatialPolygons(list(ps))
-				pointsRaster = rasterize(points, crop(rast1, sps, snap="out"))
-				pointsRaster[!is.na(pointsRaster[])] = 0; # plot(mask(simRasters[[h]],sps))
-				hullRaster = crop(rast1, sps, snap="out"); bufferRaster = hullRaster
-				rast2 = mask(hullRaster, sps, snap="out")
-				rast2[!is.na(pointsRaster[])] = bufferRaster[!is.na(pointsRaster[])]
-			}
-		envVariables = list(rast2)
-		rates = c(); geoDists = matrix(nrow=dim(tab)[1], ncol=1)
-		for (j in 1:length(tree$annotations))
-			{
-				rates = c(rates, tree$annotations[[j]]$location.rate)
-			}
-		for (j in 1:dim(tab)[1])
-			{
-				x1 = cbind(tab[j,"startLon"], tab[j,"startLat"])
-				x2 = cbind(tab[j,"endLon"], tab[j,"endLat"])
-				geoDists[j,1] = rdist.earth(x1, x2, miles=F, R=NULL)
-			}
-		ancestID = which(!tab[,"node1"]%in%tab[,"node2"])[1]
-		ancestPosition = c(tab[ancestID,"startLon"], tab[ancestID,"startLat"])
-		col11 = log[i,"treeLengthPrecision1"]
-		col12 = log[i,"treeLengthPrecision3"]
-		col22 = log[i,"treeLengthPrecision2"]
-		my_prec = c(col11, col12, col12, col22)
-		if (model == "cauchy") reciprocalRates = TRUE
-		if (model == "gamma") reciprocalRates = TRUE
-		if (model == "logN") reciprocalRates = FALSE
-		tab = tab[order(tab[,"startYear"]),]
-		cor = cor((tab[,"endLon"]-tab[,"startLon"]),(tab[,"endLat"]-tab[,"startLat"]))
-		my_var = solve(matrix(my_prec,nrow=2))		
-		sigma1 = sqrt(my_var[1,1]); sigma2 = sqrt(my_var[2,2])
-		rho = my_var[1,2]/(sqrt(my_var[1,1])*sqrt(my_var[2,2]))
-		sigmas = c(sigma1, sigma2)
-		output = simulatorRRW1(tree, rates, envVariables, cor, sigmas, mostRecentSamplingDatum, ancestPosition,
-							   reciprocalRates, showingPlots, newPlot, pointCol, nodesOnly)
 		file = as.character(paste(simulationsDirectory,"/TreeSimulations_",i,".csv",sep=""))
 		write.csv(output, file, row.names=F, quote=F)
 	}
@@ -587,7 +493,7 @@ envVariableNames = c("Annual_mean_temperature_C"); envVariableTitle1 = c("Impact
 envVariableTitle2 = c("on branch dispersal velocity"); envVariableTitle3 = c("(tested as conductance factor)")
 Qe = list(); Qs = list(); cols1 = list(); cols2 = list(); kS = c(100,1000); ltys = c(1,3); xLim=c(-0.17,0.1)
 cols1[[1]] = rgb(204,0,0,255,maxColorValue=255); cols2[[1]] = rgb(204,0,0,100,maxColorValue=255) # red
-cols1[[2]] = rgb(120,120,120,255,maxColorValue=255); cols2[[2]] = rgb(120,120,120,100,maxColorValue=255) # red
+cols1[[2]] = rgb(120,120,120,255,maxColorValue=255); cols2[[2]] = rgb(120,120,120,100,maxColorValue=255)
 for (i in 1:length(envVariableNames))
 	{
 		for (k in 1:length(kS))
@@ -611,11 +517,11 @@ for (i in 1:length(envVariableNames))
 				polygon(density(Qe[[i]]), col=cols2[[1]], border=NA)
 				polygon(density(Qs[[i]]), col=cols2[[2]], border=NA)
 			}
-		axis(side=1, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.02,0), lwd=0.2, tck=-0.025, col.axis="gray30")
-		axis(side=2, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.25,0), lwd=0.2, tck=-0.025, col.axis="gray30")
+		axis(side=1, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,-0.02,0), lwd=0.2, tck=-0.025, col.tick="gray30", col.axis="gray30", col="gray30")
+		axis(side=2, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.25,0), lwd=0.2, tck=-0.025, col.tick="gray30", col.axis="gray30", col="gray30")
 		title(xlab=expression(italic(Q) == {R^{2}}[env] - {R^{2}}[null]), cex.lab=0.7, mgp=c(1,0,0), col.lab="gray30")
 		title(ylab="density", cex.lab=0.7, mgp=c(1.2,0,0), col.lab="gray30")
-		legend(x=-0.162, y=35, legend=c("inferred trees","simulated trees",expression(italic(k) == 1,000),expression(italic(k) == 100)), 
+		legend(x=-0.162, y=35, legend=c("inferred trees","simulated trees",expression(italic(k) == 1000),expression(italic(k) == 100)), 
 			   lwd=0.7, cex=0.7, lty=c(1,1,rev(ltys)), col=c(unlist(cols1),"gray30","gray30"), text.col=c(unlist(cols1),"gray30","gray30"),
 			   border=NA, x.intersp=0.5, bty="n")
 	}
