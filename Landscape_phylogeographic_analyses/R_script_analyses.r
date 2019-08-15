@@ -271,7 +271,7 @@ for (h in 1:2)
 									{
 										col_mcc_1 = cols_mcc_1[[i]][which(mccs[[i]][,"endYear"]>years[i-1])]
 										col_mcc_2 = cols_mcc_2[[i]][which(mccs[[i]][,"endYear"]>years[i-1])]
-										mcc = mccs[[i]][which(mccs[[i]][,"endYear"]>years[i]),]
+										mcc = mccs[[i]][which(mccs[[i]][,"endYear"]>=years[i]),]
 									}	else	{
 										col_mcc_1 = cols_mcc_1[[i]]; col_mcc_2 = cols_mcc_2[[i]]; mcc = mccs[[i]]
 									}
