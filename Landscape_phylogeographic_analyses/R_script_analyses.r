@@ -33,7 +33,7 @@ envVariableNames2 = c("Elevation","Forests","Shrublands","Savannas","Grasslands"
 rS = list(); cols = list()
 for (i in 1:length(envVariableFiles)) rS[[i]] = raster(paste0("Environmental_files/WNV_rasters/",envVariableFiles[i],"_WNV_04.asc"))
 rS[[1]][rS[[1]][]<0] = 0; rS[[9]][] = rS[[9]][]/100 # legend: temperature in °C and precipitation in meters
-cols[[1]] = colorRampPalette(brewer.pal(9,"YlOrRd"))(100)
+cols[[1]] = colorRampPalette(brewer.pal(9,"YlOrBr"))(100)
 colour1 = "white"; colour2 = "olivedrab3"; r = rS[[2]]
 cols[[2]] = colorRampPalette(c(colour1,colour2),bias=1)((max(r[],na.rm=T)+1)-min(r[],na.rm=T))[1:((max(r[],na.rm=T)+1)-min(r[],na.rm=T))]
 colour1 = "white"; colour2 = "burlywood3"; r = rS[[3]]
@@ -46,8 +46,8 @@ colour1 = "white"; colour2 = "navajowhite4"; r = rS[[6]]
 cols[[6]] = colorRampPalette(c(colour1,colour2),bias=1)((max(r[],na.rm=T)+1)-min(r[],na.rm=T))[1:((max(r[],na.rm=T)+1)-min(r[],na.rm=T))]
 colour1 = "white"; colour2 = colorRampPalette(brewer.pal(9,"Blues"))(9)[5]
 cols[[7]] = colorRampPalette(c(colour1,colour2),bias=1)((max(r[],na.rm=T)+1)-min(r[],na.rm=T))[1:((max(r[],na.rm=T)+1)-min(r[],na.rm=T))]
-cols[[8]] = colorRampPalette(brewer.pal(9,"Oranges"))(100)
-cols[[9]] = colorRampPalette(brewer.pal(9,"Blues"))(100)
+cols[[8]] = colorRampPalette(brewer.pal(9,"YlOrRd"))(100)
+cols[[9]] = colorRampPalette(brewer.pal(9,"YlGnBu"))(100)
 xmin = -125; xmax = -65; ymin = 21; ymax = 53
 labsX = c(expression(125*degree*W), expression(65*degree*W))
 labsY = c(expression(21*degree*N), expression(53*degree*N))
