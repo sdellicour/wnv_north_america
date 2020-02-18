@@ -1,0 +1,18 @@
+BFs_randomisation_1
+null_raster	NA
+Elevation_R	11.5
+Land_cover_forests_R	Inf
+Land_cover_shrublands_R	0.0204
+Land_cover_savannas_R	1.8571
+Land_cover_grasslands_R	3.1667
+Land_cover_croplands_R	0.8868
+Annual_mean_temperature_R	0.4844
+Annual_precipitation_R	Inf
+Elevation_C	0.087
+Land_cover_forests_C	0
+Land_cover_shrublands_C	49
+Land_cover_savannas_C	0.5385
+Land_cover_grasslands_C	0.3158
+Land_cover_croplands_C	1.1277
+Annual_mean_temperature_C	2.0645
+Annual_precipitation_C	0
