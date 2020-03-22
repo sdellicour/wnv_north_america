@@ -897,7 +897,7 @@ for (i in length(analyses):1)
 	{
 		stats = read.table(paste0("Dispersal_statistics/WNV_",analyses[i],"_obs_estimated_dispersal_statistics.txt"), header=T)
 		v = stats[,"mean_branch_dispersal_velocity"]; D = stats[,"original_diffusion_coefficient"]; D = D/365
-		cat(paste0("Mean branch dispersal velocity for strain ",analyses[i],":\n\t"))
+		cat(paste0("Mean branch dispersal velocity for genotype ",analyses[i],":\n\t"))
 		cat(paste0(round(mean(v),1)," km/year, 95% HPD = [",round(quantile(v,0.025),1),",",round(quantile(v,0.975),1),"]\n"))
 		if (i == length(analyses))
 			{
@@ -923,7 +923,7 @@ for (i in length(analyses):1)
 	{
 		stats = read.table(paste0("Dispersal_statistics/WNV_",analyses[i],"_obs_estimated_dispersal_statistics.txt"), header=T)
 		v = stats[,"weighted_branch_dispersal_velocity"]; D = stats[,"original_diffusion_coefficient"]; D = D/365
-		cat(paste0("Weighted branch dispersal velocity for strain ",analyses[i],":\n\t"))
+		cat(paste0("Weighted branch dispersal velocity for genotype ",analyses[i],":\n\t"))
 		cat(paste0(round(mean(v),1)," km/year, 95% HPD = [",round(quantile(v,0.025),1),",",round(quantile(v,0.975),1),"]\n"))
 		if (i == length(analyses))
 			{
@@ -950,7 +950,7 @@ for (i in length(analyses):1)
 	{
 		stats = read.table(paste0("Dispersal_statistics/WNV_",analyses[i],"_obs_estimated_dispersal_statistics.txt"), header=T)
 		v = stats[,"original_diffusion_coefficient"]; D = stats[,"original_diffusion_coefficient"]; D = D/365
-		cat(paste0("Original diffusion coefficient for strain ",analyses[i],":\n\t"))
+		cat(paste0("Original diffusion coefficient for genotype ",analyses[i],":\n\t"))
 		cat(paste0(round(mean(v),1)," km2/year, 95% HPD = [",round(quantile(v,0.025),1),",",round(quantile(v,0.975),1),"]\n"))
 		if (i == length(analyses))
 			{
@@ -976,7 +976,7 @@ for (i in length(analyses):1)
 	{
 		stats = read.table(paste0("Dispersal_statistics/WNV_",analyses[i],"_obs_estimated_dispersal_statistics.txt"), header=T)
 		v = stats[,"weighted_diffusion_coefficient"]; D = stats[,"original_diffusion_coefficient"]; D = D/365
-		cat(paste0("Weighted diffusion coefficient for strain ",analyses[i],":\n\t"))
+		cat(paste0("Weighted diffusion coefficient for genotype ",analyses[i],":\n\t"))
 		cat(paste0(round(mean(v),1)," km2/year, 95% HPD = [",round(quantile(v,0.025),1),",",round(quantile(v,0.975),1),"]\n"))
 		if (i == length(analyses))
 			{
