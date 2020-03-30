@@ -15,7 +15,7 @@ library(seraphim)
 # 7. Testing the impact of environmental factors on lineage dispersal locations
 # 8. Testing the impact of environmental factors on lineage dispersal tendency
 # 9. Testing the impact of environmental factors on lineage dispersal velocity
-# 10. Testing the impact of migratory flyways on branch dispersal frequency
+# 10. Testing the impact of migratory flyways on lineage dispersal frequency
 
 e_WNV = extent(-128, -63, 19, 55) # extent of study area
 localTreesDirectory = "Tree_extractions/WNV_gamma_all"
@@ -999,7 +999,7 @@ axis(side=2, lwd.tick=0.2, cex.axis=0.6, mgp=c(0,0.25,0), lwd=0.2, tck=-0.025, c
 title(xlab="weighted lineage dispersal velocity (km/year)", cex.lab=0.7, mgp=c(0.8,0,0), col.lab="gray30")
 title(ylab="density", cex.lab=0.7, mgp=c(1.2,0,0), col.lab="gray30")
 
-# 7. Testing the impact of environmental factors on branch dispersal position
+# 7. Testing the impact of environmental factors on lineage dispersal locations
 
 startTime = 1999; endTime = 2016+(8/12); months = c("01","02","03","04","05","06","07","08","09","10","11","12")
 envVariables = list(); timeSlices = (endTime-startTime)*12; slidingWindow = 1/12; showingPlots = FALSE; nberOfCores = 50
@@ -1180,7 +1180,7 @@ for (i in 1:length(envVariableNames))
 		mtext(envVariableTitles[i], line=-1, cex=0.55, font=1, col="gray30")
 	}
 
-# 8. Testing the impact of environmental factors on branch dispersal tendency
+# 8. Testing the impact of environmental factors on lineage dispersal tendency
 
 pathModel = 0; envVariables = list(); resistances = list(); avgResistances = list(); fourCells = FALSE
 nberOfRandomisations = 1; randomProcedure = 2; showingPlots = FALSE; nberOfCores = 1; OS = "Unix"; simulations = FALSE
@@ -1206,7 +1206,7 @@ for (i in 1:length(analyses))
 			 		  nberOfRandomisations,randomProcedure,outputName,showingPlots,nberOfCores,OS,simulations)
 	}
 
-# 9. Testing the impact of environmental factors on branch dispersal velocity
+# 9. Testing the impact of environmental factors on lineage dispersal velocity
 
 c = 0; envVariables = list(); resistances = list(); avgResistances = list(); fourCells = FALSE
 nberOfRandomisations = 0; randomProcedure = 3; showingPlots = FALSE; nberOfCores = 50; OS = "Unix"; randomisations = FALSE
