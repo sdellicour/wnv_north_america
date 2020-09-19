@@ -1203,7 +1203,7 @@ for (i in 1:length(analyses))
 	{
 		localTreesDirectory = paste0("Tree_extractions/",analyses[i]); outputName = paste0(analyses[i],"_dispersal_tendency")
 		spreadFactors(localTreesDirectory,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-			 		  nberOfRandomisations,randomProcedure,outputName,showingPlots,nberOfCores,OS,simulations)
+			 		  nberOfRandomisations,randomProcedure,outputName,showingPlots,nberOfCores,OS,simulations=F)
 	}
 
 # 9. Testing the impact of environmental factors on lineage dispersal velocity
@@ -1239,16 +1239,16 @@ for (i in 1:length(analyses))
 		localTreesDirectory = paste0("Tree_extractions/",analyses[i])
 		pathModel = 2; simulations = FALSE; outputNames = paste0(analyses[i],"_least-cost_extractions")
 		spreadFactors(localTreesDirectory,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations,randomisations)	
+		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations=F,randomisations=F)	
 		pathModel = 2; simulations = TRUE; outputNames = paste0(analyses[i],"_circuitscape_simulations")
 		spreadFactors(localTreesDirectory,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations,randomisations)	
+		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations=T,randomisations=F)	
 		pathModel = 3; simulations = FALSE; outputNames = paste0(analyses[i],"_least-cost_extractions")
 		spreadFactors(localTreesDirectory,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations,randomisations)	
+		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations=F,randomisations=F)	
 		pathModel = 3; simulations = TRUE; outputNames = paste0(analyses[i],"_circuitscape_simulations")
 		spreadFactors(localTreesDirectory,nberOfExtractionFiles,envVariables,pathModel,resistances,avgResistances,fourCells,
-		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations,randomisations)	
+		 nberOfRandomisations,randomProcedure,outputName=analyses[i],showingPlots,nberOfCores,OS,simulations=T,randomisations=F)	
 	}
 
 envVariableNames = c("Elevation","Land_cover_forests","Land_cover_shrublands","Land_cover_savannas","Land_cover_grasslands",
